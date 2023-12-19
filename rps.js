@@ -2,19 +2,10 @@ let score = JSON.parse(localStorage.getItem('score')) || {
     wins: 0,
     losses: 0,
     ties: 0
-  };
+}
+
   
   updateScoreElement();
-  
-  /*
-  if (!score) {
-    score = {
-      wins: 0,
-      losses: 0,
-      ties: 0
-    };
-  }
-  */
   
   function playGame(playerMove) {
     const computerMove = pickComputerMove();
@@ -55,9 +46,19 @@ let score = JSON.parse(localStorage.getItem('score')) || {
       score.losses += 1;
     } else if (result === 'Tie.') {
       score.ties += 1;
+    } 
+
+    if (score.wins === 5) {
+      result = 'You won the game! The game will reset!';
+      score.wins = 0;
+      score.losses = 0;
+      score.ties = 0;
+    } else if (score.losses === 5) {
+      result = 'You lost the game! The game will reset!';
+      score.wins = 0;
+      score.losses = 0;
+      score.ties = 0;
     }
-  
-    localStorage.setItem('score', JSON.stringify(score));
   
     updateScoreElement();
   
